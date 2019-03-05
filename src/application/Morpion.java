@@ -1,18 +1,19 @@
 package application;
 
-import java.util.*;
+
 
 
 public class Morpion {
 
-	private static int current = 0;
+	private Tictactoe current;
 	protected Tictactoe plateau[][];
-	private int playerX = 1;
-	private int playerY = 2;
+	private Tictactoe playerX = Tictactoe.CROSS;
+	private Tictactoe playerY = Tictactoe.CIRCLE;
 	
 	
 	public Morpion() {
 		this.plateau = new Tictactoe[2][2];
+		this.current = playerY;
 	/*	for (int i = 0; i < plateau.length; i++) {
 			for (int j = 0; j < plateau.length; j++) {
 				this.plateau[i][j] = -1;
@@ -44,10 +45,20 @@ public class Morpion {
 		return winner;
 	}
 	
-	public boolean addTac(int player, int x, int y) {
-		if(this.plateau[x][y] == Tictactoe.CIRCLE || this.plateau[x][y] == Tictactoe.CROSS)	return false;
-		this.plateau[x][y] = player;
-		return true;
+	public void switchPlayer() {
+		if(this.current == playerX)	this.current = playerY;
+		else this.current = playerX;
+	}
+	
+	public boolean addTac(Tictactoe player, int x, int y) {
+		if(this.current == player) {
+			if(this.plateau[x][y] == Tictactoe.CIRCLE || this.plateau[x][y] == Tictactoe.CROSS)	return false;
+			this.plateau[x][y] = player;
+			this.switchPlayer();
+			return true;
+		}
+		return false;
+
 	}
 	
 	
