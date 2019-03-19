@@ -20,4 +20,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/JavaIA</name>
+			<type>2</type>
+			<location>/home/nas02a/etudiants/inf/uapv1502995/eclipse-workspace/ux-java/src/JavaIA</location>
+		</link>
+	</linkedResources>
 </projectDescription>

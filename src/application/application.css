@@ -1,1 +1,9 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.img-background
+{
+	-fx-background-color: #a6a6a6;
+}
+.grid
+{
+	-fx-background-color: #00ffaa;
+}

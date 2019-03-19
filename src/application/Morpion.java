@@ -111,7 +111,7 @@ public class Morpion {
 		for (int i = 0; i < plateau.length; i++) {
 			for (int j = 0; j < plateau.length; j++) {
 				System.out.print("|");
-				System.out.print( i + ","+j);
+				System.out.print( i + "," + j);
 
 			}
 			System.out.print("|");
@@ -131,6 +131,7 @@ public class Morpion {
 	}
 	
 
+	@SuppressWarnings("resource")
 	public int Catch(int max) {
     	Scanner sc = new Scanner(System.in);
     	boolean flag = false;
