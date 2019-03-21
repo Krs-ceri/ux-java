@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="img-background" stylesheets="@../../bin/application/application.css" xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="img-background" stylesheets="@../../bin/application/application.css" xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GameController">
    <children>
       <GridPane fx:id="grid" gridLinesVisible="true" layoutX="45.0" layoutY="102.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="239.0" prefWidth="237.0" styleClass="grid" stylesheets="@../../bin/application/application.css">
         <columnConstraints>
@@ -26,7 +26,7 @@
          </effect>
       </GridPane>
       <Button layoutX="6.0" layoutY="360.0" mnemonicParsing="false" text="Back" />
-      <Label layoutX="416.0" layoutY="124.0" prefHeight="44.0" prefWidth="94.0" text="Label" />
-      <Label layoutX="403.0" layoutY="220.0" prefHeight="37.0" prefWidth="83.0" text="Label" />
+      <Label fx:id="current" alignment="CENTER" layoutX="206.0" layoutY="11.0" prefHeight="50.0" prefWidth="50.0" textAlignment="CENTER" />
+      <Button fx:id="back" alignment="TOP_LEFT" layoutY="1.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
    </children>
 </AnchorPane>

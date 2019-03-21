@@ -10,8 +10,11 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 
 public class Main extends Application {
+	
+	
 	private Stage window;
 	private AnchorPane root;
+	
 	private static volatile Main instance = null;
 	@Override
 	public void start(Stage primaryStage) {
@@ -19,7 +22,6 @@ public class Main extends Application {
 		window.setTitle("Morpion CERI");
 		try
 		{
-			System.out.println("bite");
 			// Permet de charger le menuPrincipal.fxml
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("../View/APIView.fxml"));

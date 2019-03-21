@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #a6a6a6;" xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menuController">
+<AnchorPane fx:id="mainMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #a6a6a6;" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menuController">
    <children>
-      <Label layoutX="171.0" layoutY="7.0" prefHeight="93.0" prefWidth="259.0" text="Morpi0n" textAlignment="CENTER" textFill="#d75d5d">
+      <Label layoutX="171.0" layoutY="7.0" prefHeight="93.0" prefWidth="259.0" stylesheets="@../application/application.css" text="Morpi0n" textAlignment="CENTER" textFill="#d75d5d">
          <font>
             <Font name="Lato Regular" size="62.0" />
          </font>
@@ -16,5 +16,8 @@
       <Button fx:id="Duo" layoutX="170.0" layoutY="184.0" mnemonicParsing="false" onAction="#showDuo" prefHeight="26.0" prefWidth="69.0" text="Duo" />
       <Button fx:id="opt" layoutX="171.0" layoutY="228.0" mnemonicParsing="false" onAction="#options" text="Options" />
       <Button fx:id="quit" layoutX="171.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleQuit" prefHeight="26.0" prefWidth="69.0" text="Quitter" />
+      <Button fx:id="eSolo" layoutX="530.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showESolo" prefHeight="26.0" prefWidth="72.0" text="easy" visible="false" />
+      <Button fx:id="mSolo" layoutX="530.0" layoutY="142.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showMSolo" prefHeight="26.0" prefWidth="72.0" text="medium" visible="false" />
+      <Button fx:id="hSolo" layoutX="530.0" layoutY="184.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showHSolo" prefHeight="26.0" prefWidth="72.0" text="wtf" visible="false" />
    </children>
 </AnchorPane>
