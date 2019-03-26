@@ -4,8 +4,11 @@ package application;
 import java.lang.*;
 import java.util.*;
 
+
+
 public class Morpion {
 
+    private static volatile Morpion instance = null;
 	private Tictactoe current;
 	protected Tictactoe plateau[][];
 	private Tictactoe playerX = Tictactoe.CROSS;
@@ -130,6 +133,24 @@ public class Morpion {
 		return false;
 	}
 	
+	public final static Morpion getInstance()
+	{
+		if(Morpion.instance == null)
+		{
+			synchronized(Morpion.class)
+			{
+				if(Morpion.instance == null)
+				{
+					Morpion.instance = new Morpion();
+				}
+			}
+		}
+		return Morpion.instance;
+	}
+	
+	public Tictactoe Current() {
+		return this.current;
+	}
 
 	@SuppressWarnings("resource")
 	public int Catch(int max) {

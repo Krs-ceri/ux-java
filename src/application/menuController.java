@@ -58,6 +58,8 @@ public class menuController implements Initializable{
     private Button mSolo;
     @FXML
     private Button hSolo;
+	@FXML
+	private GridPane grid;
 	
     @FXML
 	void showSolo(ActionEvent event) throws IOException{
@@ -106,8 +108,7 @@ public class menuController implements Initializable{
     
     @FXML
 	void showESolo(ActionEvent event) throws IOException{
-    	try
-		{
+
         	Main main = Main.getInstance();
         	FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(getClass().getResource("../View/GameView.fxml"));
@@ -116,20 +117,14 @@ public class menuController implements Initializable{
     		Scene scene = new Scene(main.getRoot());
         	main.getWindow().setScene(scene);
         	main.getWindow().show();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-			System.err.println("Impossible d'afficher le menu");
-		}
+
 
 	}
     
     @FXML
 	void showMSolo(ActionEvent event) throws IOException{
     	  	
-    	try
-		{
+
         	Main main = Main.getInstance();
         	FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(getClass().getResource("../View/GameView.fxml"));
@@ -138,19 +133,12 @@ public class menuController implements Initializable{
     		Scene scene = new Scene(main.getRoot());
         	main.getWindow().setScene(scene);
         	main.getWindow().show();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-			System.err.println("Impossible d'afficher le menu");
-		}
+
 	}
     
     @FXML
 	void showHSolo(ActionEvent event) throws IOException{
     	  	
-    	try
-		{
         	Main main = Main.getInstance();
         	FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(getClass().getResource("../View/GameView.fxml"));
@@ -159,18 +147,12 @@ public class menuController implements Initializable{
     		Scene scene = new Scene(main.getRoot());
         	main.getWindow().setScene(scene);
         	main.getWindow().show();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-			System.err.println("Impossible d'afficher le menu");
-		}
+
 	}
     
     @FXML
 	void showDuo(ActionEvent event) throws IOException{
-    	try
-		{
+
         	Main main = Main.getInstance();
         	FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(getClass().getResource("../View/GameView.fxml"));
@@ -179,12 +161,7 @@ public class menuController implements Initializable{
     		Scene scene = new Scene(main.getRoot());
         	main.getWindow().setScene(scene);
         	main.getWindow().show();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-			System.err.println("Impossible d'afficher le menu");
-		}
+
 	}
 	
     @FXML
@@ -198,13 +175,15 @@ public class menuController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 
-
+		Main.getInstance().getWindow().setOnCloseRequest( event ->
+		{
+			Platform.exit();
+			System.exit(0);
+		});
 	}
 	
 	@FXML
 	void options(ActionEvent event) throws IOException{
-    	try
-		{
         	Main main = Main.getInstance();
         	FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(getClass().getResource("../View/GameView.fxml"));
@@ -213,11 +192,6 @@ public class menuController implements Initializable{
     		Scene scene = new Scene(main.getRoot());
         	main.getWindow().setScene(scene);
         	main.getWindow().show();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-			System.err.println("Impossible d'afficher le menu");
-		}
+
 	}
 }

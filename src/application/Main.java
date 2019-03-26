@@ -16,6 +16,15 @@ public class Main extends Application {
 	private AnchorPane root;
 	
 	private static volatile Main instance = null;
+	
+	public Main(){
+	    super();
+	    synchronized(Main.class){
+	        if(instance != null) throw new UnsupportedOperationException(
+	                getClass()+" is singleton but constructor called more than once");
+	        instance = this;
+	    }
+	}
 	@Override
 	public void start(Stage primaryStage) {
 		window = primaryStage;
@@ -30,6 +39,7 @@ public class Main extends Application {
 			// Affiche la scne du menu
 			Scene scene = new Scene(root);
 			window.setScene(scene);
+			window.setResizable(false);
 			window.show();
 		}
 		catch(IOException e)
