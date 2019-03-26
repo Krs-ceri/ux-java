@@ -7,8 +7,8 @@ import javax.imageio.ImageIO;
 
 public enum Tictactoe {
 
-	CIRCLE("O","o.png"),
-	CROSS("X", "x.png");
+	CIRCLE("O","images/o.png"),
+	CROSS("X", "images/x.png");
 	private String pion = "";
 	private final BufferedImage image;
 	

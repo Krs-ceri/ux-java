@@ -19,8 +19,8 @@ public class Morpion {
 		Morpion atchoum = new Morpion();
 
 		/*System.out.println();
-		atchoum.addTac(atchoum.current, 0, 0);
-		atchoum.Print();*/
+		atchoum.addTac(atchoum.current, 0, 0);*/
+		atchoum.Print1();
 		atchoum.Game();
 		atchoum.Print1();
 		
@@ -150,6 +150,15 @@ public class Morpion {
 	
 	public Tictactoe Current() {
 		return this.current;
+	}
+	
+	public void eraseMorpion() {
+		for (int i = 0; i < plateau.length; i++) {
+			for (int j = 0; j < plateau.length; j++) {
+				this.plateau[i][j] = null;
+			}
+		}
+		this.clique = 0;
 	}
 
 	@SuppressWarnings("resource")
