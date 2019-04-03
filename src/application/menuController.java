@@ -110,8 +110,11 @@ public class menuController implements Initializable{
 	void showESolo(ActionEvent event) throws IOException{
 
         	Main main = Main.getInstance();
+        	Morpion r = Morpion.getInstance();
+        	r.Reset();
+        	r.initBoard(1);
         	FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(getClass().getResource("../View/GameView.fxml"));
+    		loader.setLocation(getClass().getResource("../View/GameSoloView.fxml"));
     		main.setRoot(loader.load());
 
     		Scene scene = new Scene(main.getRoot());
@@ -127,7 +130,10 @@ public class menuController implements Initializable{
 
         	Main main = Main.getInstance();
         	FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(getClass().getResource("../View/GameView.fxml"));
+        	Morpion r = Morpion.getInstance();
+        	r.Reset();
+        	r.initBoard(2);
+    		loader.setLocation(getClass().getResource("../View/GameSoloView.fxml"));
     		main.setRoot(loader.load());
 
     		Scene scene = new Scene(main.getRoot());
@@ -141,7 +147,10 @@ public class menuController implements Initializable{
     	  	
         	Main main = Main.getInstance();
         	FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(getClass().getResource("../View/GameView.fxml"));
+        	Morpion r = Morpion.getInstance();
+        	r.Reset();
+        	r.initBoard(3);
+    		loader.setLocation(getClass().getResource("../View/GameSoloView.fxml"));
     		main.setRoot(loader.load());
 
     		Scene scene = new Scene(main.getRoot());
@@ -155,6 +164,8 @@ public class menuController implements Initializable{
 
         	Main main = Main.getInstance();
         	FXMLLoader loader = new FXMLLoader();
+        	Morpion r = Morpion.getInstance();
+        	r.Reset();
     		loader.setLocation(getClass().getResource("../View/GameView.fxml"));
     		main.setRoot(loader.load());
 

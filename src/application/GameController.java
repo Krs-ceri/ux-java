@@ -1,10 +1,12 @@
 package application;
+
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import application.Main;
-import com.sun.javafx.scene.EnteredExitedHandler;
+
 
 
 import javafx.event.ActionEvent;
@@ -28,7 +30,61 @@ import javafx.stage.Stage;
 
 import org.omg.PortableInterceptor.SUCCESSFUL;
 
+
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.stage.WindowEvent;
+import javafx.util.Duration;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
+import application.Morpion;
+import images.*;
+
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import application.Main;
+import com.sun.javafx.scene.EnteredExitedHandler;
+
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+import org.omg.PortableInterceptor.SUCCESSFUL;
+
 import com.sun.prism.shader.Texture_Color_AlphaTest_Loader;
+
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 
 import javafx.application.Platform;
 
@@ -40,26 +96,30 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.text.Font;
 import javafx.stage.WindowEvent;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
-import application.Morpion;
-import images.*;
+
+
 
 public class GameController implements Initializable{
 	
 	@FXML
 	private GridPane grid;
 	@FXML
-	private TableView table;
+	private TableView<?> table;
+    /*
+    final TableColumn<Car, String> brandColumn = new TableColumn<>("Marque"); 
+    final TableColumn<Car, Color> colorColumn = new TableColumn<>("Couleur"); 
+    final TableColumn<Car, Integer> seatsColumn = new TableColumn<>("Si�ges"); 
+    final TableColumn<Car, Integer> doorsColumn = new TableColumn<>("Portes"); 
+    tableView.getColumns().addAll(brandColumn, colorColumn, seatsColumn, doorsColumn);*/
+	
 	@FXML
 	private AnchorPane f;
 	
@@ -84,10 +144,22 @@ public class GameController implements Initializable{
 	private Button c2;
 	@FXML
 	private ImageView current;
+	
+	@FXML 
+	private Rectangle recdiagl ;
+	@FXML 
+	private Rectangle recdiagr ;
+	@FXML 
+	private Rectangle recflat ;
+	@FXML 
+	private Rectangle recstand ;
+
+	
+
 
 	Image cercle = new Image("images/o.png") ;
 	Image croix = new Image("images/x.png") ;
-	Morpion game = new Morpion();
+	Morpion game = Morpion.getInstance();
 	Main main = Main.getInstance();
 	
     @FXML
@@ -103,6 +175,7 @@ public class GameController implements Initializable{
     	main.getWindow().show();
     }
 
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -113,6 +186,99 @@ public class GameController implements Initializable{
 			Platform.exit();
 			System.exit(0);
 		}); 
+	}
+	
+
+	private void animationLine(Rectangle rectangle)
+	{
+
+		final TranslateTransition translateAnimation = new TranslateTransition(Duration.seconds(1), rectangle); 
+		translateAnimation.setCycleCount(TranslateTransition.INDEFINITE); 
+		translateAnimation.setAutoReverse(true); 
+		translateAnimation.setByX(5); 
+		translateAnimation.setByY(0); 
+		translateAnimation.setInterpolator(Interpolator.LINEAR);
+		translateAnimation.play();
+	}
+	 
+	
+	private void animationVerticale(Rectangle rectangle)
+	{
+		final TranslateTransition translateAnimation = new TranslateTransition(Duration.seconds(1), rectangle); 
+		translateAnimation.setCycleCount(TranslateTransition.INDEFINITE); 
+		translateAnimation.setAutoReverse(true); 
+		translateAnimation.setByX(0); 
+		translateAnimation.setByY(5); 
+		 
+		translateAnimation.setInterpolator(Interpolator.LINEAR);
+		translateAnimation.play();
+	}
+	
+	
+
+	private void animationDiagonale(Rectangle rectangle)
+	{
+		final TranslateTransition translateAnimation = new TranslateTransition(Duration.seconds(1), rectangle); 
+		translateAnimation.setCycleCount(TranslateTransition.INDEFINITE); 
+		translateAnimation.setAutoReverse(true); 
+		translateAnimation.setByX(5); 
+		translateAnimation.setByY(5); 
+		translateAnimation.setInterpolator(Interpolator.LINEAR);
+		translateAnimation.play();
+	}
+	
+
+	public void afficheTrait(int a)
+	{
+		System.out.println(a);
+		switch(a) {
+		case 1:
+			recflat.setVisible(true);
+            recflat.setY(-280);
+			this.animationLine(recflat);
+			break;
+		case 2:
+			
+			recflat.setVisible(true);
+			
+            recflat.setY(-150);
+			this.animationLine(recflat);
+			break ;
+		case 3:
+			recflat.setVisible(true);
+            recflat.setY(-80);
+			this.animationLine(recflat);
+			break ;
+		case 4:
+			recstand.setVisible(true);
+			recstand.setX(-170);
+			this.animationVerticale(recstand);
+			break ;
+		case 5:
+			this.recstand.setVisible(true);
+	     	recstand.setX(-130);
+			this.animationVerticale(recstand);
+			break ;
+		case 6:
+			recstand.setVisible(true);
+			recstand.setX(-50);
+			this.animationVerticale(recstand);
+			break ;
+		case 7:
+			recstand.setRotate(45);
+			recstand.setX(-150);
+			recstand.setVisible(true);
+			this.animationDiagonale(recstand);
+			break ;
+		case 8:
+			recflat.setRotate(-45);
+			recflat.setY(-130);
+			recflat.setVisible(true);
+			this.animationDiagonale(recflat);
+			break ;
+		default:
+			break;
+		}
 	}
 	
 	@FXML
@@ -139,6 +305,8 @@ public class GameController implements Initializable{
 		this.game.addTac(this.game.Current(), 0, 0);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -173,7 +341,10 @@ public class GameController implements Initializable{
 			this.game.addTac(this.game.Current(), 0, 1);
 			if(this.game.winCondition() != null)
 			{
+				this.afficheTrait(this.game.WinningAnim());
+
 				this.win() ;
+				
 			}
 			else if(this.game.nulRound())
 			{
@@ -206,6 +377,8 @@ public class GameController implements Initializable{
 		this.game.addTac(this.game.Current(), 0, 2);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -240,6 +413,8 @@ public class GameController implements Initializable{
 			this.game.addTac(this.game.Current(), 1, 0);
 			if(this.game.winCondition() != null)
 			{
+				this.afficheTrait(this.game.WinningAnim());
+
 				this.win() ;
 			}
 			else if(this.game.nulRound())
@@ -276,6 +451,8 @@ public class GameController implements Initializable{
 		this.game.addTac(this.game.Current(), 1, 1);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -310,6 +487,8 @@ public class GameController implements Initializable{
 		this.game.addTac(this.game.Current(), 1, 2);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -343,6 +522,8 @@ public class GameController implements Initializable{
 		this.game.addTac(this.game.Current(), 2, 0);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -377,6 +558,8 @@ public class GameController implements Initializable{
 		this.game.addTac(this.game.Current(), 2, 1);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -411,6 +594,8 @@ public class GameController implements Initializable{
 		this.game.addTac(this.game.Current(), 2, 2);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -426,7 +611,7 @@ public class GameController implements Initializable{
 	{
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Fin de la aprtie");
-		alert.setHeaderText("Match null ! Personne n'a gagné");
+		alert.setHeaderText("Match null ! Personne n'a gagner");
 		alert.setContentText("Choose your option.");
 
 		ButtonType buttonTypeOne = new ButtonType("Recommencer");
@@ -454,43 +639,74 @@ public class GameController implements Initializable{
 			// ... user chose CANCEL or closed the dialog
 		}
 	}
-	void eraseImage()
+	void disableBoard()
 	{
-		this.a0.setDisable(false);
-		this.a1.setDisable(false);
-		this.a2.setDisable(false);
-		this.b0.setDisable(false);
-		this.b1.setDisable(false);
-		this.b2.setDisable(false);
-		this.c0.setDisable(false);
-		this.c1.setDisable(false);
-		this.c2.setDisable(false);
-		
-
-		this.game.eraseMorpion() ;
+		this.a0.setMouseTransparent(true);
+		this.a1.setMouseTransparent(true);
+		this.a2.setMouseTransparent(true);
+		this.b0.setMouseTransparent(true);
+		this.b1.setMouseTransparent(true);
+		this.b2.setMouseTransparent(true);
+		this.c0.setMouseTransparent(true);
+		this.c1.setMouseTransparent(true);
+		this.c2.setMouseTransparent(true);
 	}
 	
+	void ableBoard()
+	{
+		this.a0.setMouseTransparent(false);
+		this.a1.setMouseTransparent(false);
+		this.a2.setMouseTransparent(false);
+		this.b0.setMouseTransparent(false);
+		this.b1.setMouseTransparent(false);
+		this.b2.setMouseTransparent(false);
+		this.c0.setMouseTransparent(false);
+		this.c1.setMouseTransparent(false);
+		this.c2.setMouseTransparent(false);
+	}
+	
+	void eraseImage()
+	{
+		this.a0.setBackground(null);
+		this.a1.setBackground(null);
+		this.a2.setBackground(null);
+		this.b0.setBackground(null);
+		this.b1.setBackground(null);
+		this.b2.setBackground(null);
+		this.c0.setBackground(null);
+		this.c1.setBackground(null);
+		this.c2.setBackground(null);
+
+		recflat.setVisible(false);
+		recstand.setVisible(false);
+		recstand.setX(0);
+		recstand.setY(0);
+		recflat.setY(0);
+		recflat.setX(0);
+
+		
+	}
+	//
 	public void win()
 	{
-		
-		if(this.game.winCondition() != null)
-		{
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Congratulations");
-			alert.setHeaderText("Le joueur "+ this.game.winCondition().toString() +" à gagner ");
+			alert.setHeaderText("Le joueur "+ this.game.winCondition().toString() +" a gagner ");
 			alert.setContentText("Choose your option.");
 
 			ButtonType buttonTypeOne = new ButtonType("Recommencer");
 			ButtonType buttonTypeTwo = new ButtonType("Back");
 			ButtonType buttonTypeThree = new ButtonType("Quit");
 			ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-
+			this.disableBoard();
 			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
 
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOne)
 			{
-				this.eraseImage() ;
+				this.game.Reset();
+				this.eraseImage();
+				this.ableBoard();
 			}
 			else if (result.get() == buttonTypeTwo) 
 			{
@@ -517,8 +733,7 @@ public class GameController implements Initializable{
 			}
 			else 
 			{
-				// ... user chose CANCEL or closed the dialog
+				
 			}
 		}
-}
 }

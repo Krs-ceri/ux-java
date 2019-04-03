@@ -14,19 +14,10 @@ public class Morpion {
 	private Tictactoe playerX = Tictactoe.CROSS;
 	private Tictactoe playerO = Tictactoe.CIRCLE;
 	private int clique = 0;
+	private boolean ai =false;
+	private int level = 0;
 	
-	public static void main(String[] args) {
-		Morpion atchoum = new Morpion();
-
-		/*System.out.println();
-		atchoum.addTac(atchoum.current, 0, 0);*/
-		atchoum.Print1();
-		atchoum.Game();
-		atchoum.Print1();
 		
-	}
-	
-	
 	
 	public Morpion() {
 		this.plateau = new Tictactoe[3][3];
@@ -80,6 +71,42 @@ public class Morpion {
 					|| (this.plateau[2][0] == this.plateau[1][1] && this.plateau[1][1] == this.plateau[0][2])) { winner = this.plateau[1][1]; }
 		}
 		return winner;
+	}
+	
+	public int WinningAnim() {
+		if(this.plateau[0][0] == Tictactoe.CIRCLE || this.plateau[0][0] == Tictactoe.CROSS) {		
+			if(this.plateau[0][1] == this.plateau[0][0] && this.plateau[0][2] == this.plateau[0][0]) {
+				return 1;	//ligne haute
+			}
+			if(this.plateau[1][0] == this.plateau[0][0] && this.plateau[2][0] == this.plateau[0][0]) {
+				return 4;	//verticale gauche
+			}
+			if(this.plateau[1][1] == this.plateau[0][0] && this.plateau[2][2] == this.plateau[0][0]) { 
+				return 7;	//diag gauche
+			}
+	
+		}
+		if(this.plateau[2][2] == Tictactoe.CIRCLE || this.plateau[2][2] == Tictactoe.CROSS) {
+			if(this.plateau[2][1] == this.plateau[2][2] && this.plateau[2][0] == this.plateau[2][2]) {
+				return 3;	//ligne basse
+			}
+			if(this.plateau[0][2] == this.plateau[2][2] && this.plateau[2][2] == this.plateau[1][2] ) { 
+				return 6; 	//vertcal droite
+			}
+	
+		}
+		if(this.plateau[1][1] == Tictactoe.CIRCLE || this.plateau[1][1] == Tictactoe.CROSS) {
+			if(this.plateau[0][1] == this.plateau[1][1] && this.plateau[2][1] == this.plateau[1][1]) {
+				return 5;	//vertical mid
+			}
+			if(this.plateau[1][0] == this.plateau[1][1] && this.plateau[1][1] == this.plateau[1][2]) {
+				return 2; 	//ligne mid
+			}
+			if (this.plateau[2][0] == this.plateau[1][1] && this.plateau[1][1] == this.plateau[0][2]) { 
+				return 8;	//diag droite
+			}
+		}
+		return -1;
 	}
 	
 	public boolean nulRound() {
@@ -152,13 +179,17 @@ public class Morpion {
 		return this.current;
 	}
 	
-	public void eraseMorpion() {
+	public void Reset() {
 		for (int i = 0; i < plateau.length; i++) {
 			for (int j = 0; j < plateau.length; j++) {
 				this.plateau[i][j] = null;
 			}
 		}
 		this.clique = 0;
+	}
+
+	public void initBoard(int ai) {
+		
 	}
 
 	@SuppressWarnings("resource")
