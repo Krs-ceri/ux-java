@@ -5,7 +5,11 @@ import java.lang.*;
 import java.util.*;
 
 
-
+/**
+ * 
+ * @author uapv1502995
+ *
+ */
 public class Morpion {
 
     private static volatile Morpion instance = null;
@@ -21,7 +25,7 @@ public class Morpion {
 	
 	public Morpion() {
 		this.plateau = new Tictactoe[3][3];
-		boolean choice = Math.random() < 0.5;					// Ramdom
+		boolean choice = Math.random() < 0.5;					// Ramdom, could have be the last player, but learning neuronal ai is quite difficult
 		if(choice == true)	this.current = playerO;
 		else {
 			this.current = playerX;

@@ -1,10 +1,12 @@
 package application;
+
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import application.Main;
-import com.sun.javafx.scene.EnteredExitedHandler;
+
 
 
 import javafx.event.ActionEvent;
@@ -28,8 +30,9 @@ import javafx.stage.Stage;
 
 import org.omg.PortableInterceptor.SUCCESSFUL;
 
-import com.sun.prism.shader.Texture_Color_AlphaTest_Loader;
 
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 
 import javafx.collections.FXCollections;
@@ -47,24 +50,77 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import application.Morpion;
 import images.*;
 
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import application.Main;
+import com.sun.javafx.scene.EnteredExitedHandler;
+
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+import org.omg.PortableInterceptor.SUCCESSFUL;
+
+import com.sun.prism.shader.Texture_Color_AlphaTest_Loader;
+
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
+
+import javafx.application.Platform;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.stage.WindowEvent;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
+
+
+/**
+ * 
+ * @author uapv1502995
+ *
+ */
 public class GameSoloController implements Initializable{
 	
 	@FXML
 	private GridPane grid;
 	@FXML
-	private TableView table;
+	private TableView<?> table;
     /*
     final TableColumn<Car, String> brandColumn = new TableColumn<>("Marque"); 
     final TableColumn<Car, Color> colorColumn = new TableColumn<>("Couleur"); 
-    final TableColumn<Car, Integer> seatsColumn = new TableColumn<>("Sièges"); 
+    final TableColumn<Car, Integer> seatsColumn = new TableColumn<>("Siï¿½ges"); 
     final TableColumn<Car, Integer> doorsColumn = new TableColumn<>("Portes"); 
     tableView.getColumns().addAll(brandColumn, colorColumn, seatsColumn, doorsColumn);*/
 	
@@ -92,6 +148,16 @@ public class GameSoloController implements Initializable{
 	private Button c2;
 	@FXML
 	private ImageView current;
+	
+	@FXML 
+	private Rectangle recdiagl ;
+	@FXML 
+	private Rectangle recdiagr ;
+	@FXML 
+	private Rectangle recflat ;
+	@FXML 
+	private Rectangle recstand ;
+
 	
 
 
@@ -126,6 +192,99 @@ public class GameSoloController implements Initializable{
 		}); 
 	}
 	
+
+	private void animationLine(Rectangle rectangle)
+	{
+
+		final TranslateTransition translateAnimation = new TranslateTransition(Duration.seconds(1), rectangle); 
+		translateAnimation.setCycleCount(TranslateTransition.INDEFINITE); 
+		translateAnimation.setAutoReverse(true); 
+		translateAnimation.setByX(5); 
+		translateAnimation.setByY(0); 
+		translateAnimation.setInterpolator(Interpolator.LINEAR);
+		translateAnimation.play();
+	}
+	 
+	
+	private void animationVerticale(Rectangle rectangle)
+	{
+		final TranslateTransition translateAnimation = new TranslateTransition(Duration.seconds(1), rectangle); 
+		translateAnimation.setCycleCount(TranslateTransition.INDEFINITE); 
+		translateAnimation.setAutoReverse(true); 
+		translateAnimation.setByX(0); 
+		translateAnimation.setByY(5); 
+		 
+		translateAnimation.setInterpolator(Interpolator.LINEAR);
+		translateAnimation.play();
+	}
+	
+	
+
+	private void animationDiagonale(Rectangle rectangle)
+	{
+		final TranslateTransition translateAnimation = new TranslateTransition(Duration.seconds(1), rectangle); 
+		translateAnimation.setCycleCount(TranslateTransition.INDEFINITE); 
+		translateAnimation.setAutoReverse(true); 
+		translateAnimation.setByX(5); 
+		translateAnimation.setByY(5); 
+		translateAnimation.setInterpolator(Interpolator.LINEAR);
+		translateAnimation.play();
+	}
+	
+
+	public void afficheTrait(int a)
+	{
+		System.out.println(a);
+		switch(a) {
+		case 1:
+			recflat.setVisible(true);
+            recflat.setY(-230);
+			this.animationLine(recflat);
+			break;
+		case 2:
+			
+			recflat.setVisible(true);
+			
+            recflat.setY(-150);
+			this.animationLine(recflat);
+			break ;
+		case 3:
+			recflat.setVisible(true);
+            recflat.setY(-60);
+			this.animationLine(recflat);
+			break ;
+		case 4:
+			recstand.setVisible(true);
+			recstand.setX(-220);
+			this.animationVerticale(recstand);
+			break ;
+		case 5:
+			this.recstand.setVisible(true);
+	     	recstand.setX(-140);
+			this.animationVerticale(recstand);
+			break ;
+		case 6:
+			recstand.setVisible(true);
+			recstand.setX(-50);
+			this.animationVerticale(recstand);
+			break ;
+		case 7:
+			recstand.setRotate(45);
+			recstand.setX(-150);
+			recstand.setVisible(true);
+			this.animationDiagonale(recstand);
+			break ;
+		case 8:
+			recflat.setRotate(-45);
+			recflat.setY(-130);
+			recflat.setVisible(true);
+			this.animationDiagonale(recflat);
+			break ;
+		default:
+			break;
+		}
+	}
+	
 	@FXML
 	void a0(ActionEvent event) {
 		//a0.setDisable(true);
@@ -150,6 +309,8 @@ public class GameSoloController implements Initializable{
 		this.game.addTac(this.game.Current(), 0, 0);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -184,7 +345,10 @@ public class GameSoloController implements Initializable{
 			this.game.addTac(this.game.Current(), 0, 1);
 			if(this.game.winCondition() != null)
 			{
+				this.afficheTrait(this.game.WinningAnim());
+
 				this.win() ;
+				
 			}
 			else if(this.game.nulRound())
 			{
@@ -217,6 +381,8 @@ public class GameSoloController implements Initializable{
 		this.game.addTac(this.game.Current(), 0, 2);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -251,6 +417,8 @@ public class GameSoloController implements Initializable{
 			this.game.addTac(this.game.Current(), 1, 0);
 			if(this.game.winCondition() != null)
 			{
+				this.afficheTrait(this.game.WinningAnim());
+
 				this.win() ;
 			}
 			else if(this.game.nulRound())
@@ -287,6 +455,8 @@ public class GameSoloController implements Initializable{
 		this.game.addTac(this.game.Current(), 1, 1);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -321,6 +491,8 @@ public class GameSoloController implements Initializable{
 		this.game.addTac(this.game.Current(), 1, 2);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -354,6 +526,8 @@ public class GameSoloController implements Initializable{
 		this.game.addTac(this.game.Current(), 2, 0);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -388,6 +562,8 @@ public class GameSoloController implements Initializable{
 		this.game.addTac(this.game.Current(), 2, 1);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -422,6 +598,8 @@ public class GameSoloController implements Initializable{
 		this.game.addTac(this.game.Current(), 2, 2);
 		if(this.game.winCondition() != null)
 		{
+			this.afficheTrait(this.game.WinningAnim());
+
 			this.win() ;
 		}
 		else if(this.game.nulRound())
@@ -496,14 +674,30 @@ public class GameSoloController implements Initializable{
 		this.a0.setBackground(null);
 		this.a1.setBackground(null);
 		this.a2.setBackground(null);
+		
 		this.b0.setBackground(null);
 		this.b1.setBackground(null);
 		this.b2.setBackground(null);
+		
 		this.c0.setBackground(null);
 		this.c1.setBackground(null);
 		this.c2.setBackground(null);
+
+		recflat.setVisible(false);
+		recstand.setVisible(false);
+		
+		recstand.setX(0);
+		recstand.setY(0);
+		
+		recflat.setY(0);
+		recflat.setX(0);
+		
+		recflat.setRotate(0);
+		recstand.setRotate(90);
+
+		
 	}
-	
+	//
 	public void win()
 	{
 			Alert alert = new Alert(AlertType.CONFIRMATION);

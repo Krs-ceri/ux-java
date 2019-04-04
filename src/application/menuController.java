@@ -45,7 +45,11 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 
-
+/**
+ * 
+ * @author uapv1502995
+ *
+ */
 public class menuController implements Initializable{
 
 	Main main = Main.getInstance();
@@ -197,7 +201,7 @@ public class menuController implements Initializable{
 	void options(ActionEvent event) throws IOException{
         	Main main = Main.getInstance();
         	FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(getClass().getResource("../View/GameView.fxml"));
+    		loader.setLocation(getClass().getResource("../View/OptionView.fxml"));
     		main.setRoot(loader.load());
 
     		Scene scene = new Scene(main.getRoot());

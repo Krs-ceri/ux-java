@@ -106,7 +106,11 @@ import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 
 
-
+/**
+ * 
+ * @author uapv1502995
+ *
+ */
 public class GameController implements Initializable{
 	
 	@FXML
@@ -116,7 +120,7 @@ public class GameController implements Initializable{
     /*
     final TableColumn<Car, String> brandColumn = new TableColumn<>("Marque"); 
     final TableColumn<Car, Color> colorColumn = new TableColumn<>("Couleur"); 
-    final TableColumn<Car, Integer> seatsColumn = new TableColumn<>("Sièges"); 
+    final TableColumn<Car, Integer> seatsColumn = new TableColumn<>("Siï¿½ges"); 
     final TableColumn<Car, Integer> doorsColumn = new TableColumn<>("Portes"); 
     tableView.getColumns().addAll(brandColumn, colorColumn, seatsColumn, doorsColumn);*/
 	
@@ -234,7 +238,7 @@ public class GameController implements Initializable{
 		switch(a) {
 		case 1:
 			recflat.setVisible(true);
-            recflat.setY(-280);
+            recflat.setY(-230);
 			this.animationLine(recflat);
 			break;
 		case 2:
@@ -246,17 +250,17 @@ public class GameController implements Initializable{
 			break ;
 		case 3:
 			recflat.setVisible(true);
-            recflat.setY(-80);
+            recflat.setY(-60);
 			this.animationLine(recflat);
 			break ;
 		case 4:
 			recstand.setVisible(true);
-			recstand.setX(-170);
+			recstand.setX(-220);
 			this.animationVerticale(recstand);
 			break ;
 		case 5:
 			this.recstand.setVisible(true);
-	     	recstand.setX(-130);
+	     	recstand.setX(-140);
 			this.animationVerticale(recstand);
 			break ;
 		case 6:
@@ -624,19 +628,36 @@ public class GameController implements Initializable{
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == buttonTypeOne)
 		{
-			this.eraseImage() ;
+			this.game.Reset();
+			this.eraseImage();
+			this.ableBoard();
 		}
 		else if (result.get() == buttonTypeTwo) 
 		{
-			// ... user chose "Two"
+			try {
+	    	Main main = Main.getInstance();
+	    	FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("../View/APIView.fxml"));
+	    	
+				main.setRoot(loader.load());
+			
+	    	Scene scene = new Scene(main.getRoot());
+	    	main.getWindow().setScene(scene);
+	    	main.getWindow().show();
+			} catch (IOException e) {
+
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
 		} 
 		else if (result.get() == buttonTypeThree) 
 		{
-			// ... user chose "Three"
+			Platform.exit();
+			System.exit(0);
 		}
 		else 
 		{
-			// ... user chose CANCEL or closed the dialog
+			
 		}
 	}
 	void disableBoard()
@@ -670,19 +691,26 @@ public class GameController implements Initializable{
 		this.a0.setBackground(null);
 		this.a1.setBackground(null);
 		this.a2.setBackground(null);
+		
 		this.b0.setBackground(null);
 		this.b1.setBackground(null);
 		this.b2.setBackground(null);
+		
 		this.c0.setBackground(null);
 		this.c1.setBackground(null);
 		this.c2.setBackground(null);
 
 		recflat.setVisible(false);
 		recstand.setVisible(false);
+		
 		recstand.setX(0);
 		recstand.setY(0);
+		
 		recflat.setY(0);
 		recflat.setX(0);
+		
+		recflat.setRotate(0);
+		recstand.setRotate(90);
 
 		
 	}
