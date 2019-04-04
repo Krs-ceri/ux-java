@@ -4,6 +4,10 @@ package application;
 import java.lang.*;
 import java.util.*;
 
+import ai.AI;
+import ai.AI;
+import ai.Data;
+import ai.MultiLayerPerceptron;
 
 /**
  * 
@@ -18,8 +22,10 @@ public class Morpion {
 	private Tictactoe playerX = Tictactoe.CROSS;
 	private Tictactoe playerO = Tictactoe.CIRCLE;
 	private int clique = 0;
-	private boolean ai =false;
+	private boolean ai = false;
 	private int level = 0;
+	private double[] state = new double[9];
+	private AI morp;
 	
 		
 	
@@ -192,8 +198,10 @@ public class Morpion {
 		this.clique = 0;
 	}
 
-	public void initBoard(int ai) {
-		
+	public void initBoard(int a) {
+		this.ai = true;
+		level = a;
+		ai = new AI(Integer.toString(a)) != null;
 	}
 
 	@SuppressWarnings("resource")

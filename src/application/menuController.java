@@ -107,7 +107,6 @@ public class menuController implements Initializable{
             ts3.setToX(-180);
             ts3.play(); 
     	}
-
 	}
     
     @FXML
